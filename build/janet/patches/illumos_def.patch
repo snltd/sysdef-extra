@@ -1,0 +1,14 @@
+--- a/src/include/janet.h	Mon Apr 15 21:20:13 2024
++++ a~/src/include/janet.h	Wed May 29 21:43:29 2024
+@@ -72,6 +72,11 @@
+ #define JANET_CYGWIN 1
+ #endif
+ 
++/* Check for Illumos */
++#if defined(__illumos__)
++#define JANET_ILLUMOS 1
++#endif
++
+ /* Check Unix */
+ #if defined(_AIX) \
+     || defined(__APPLE__) /* Darwin */ \

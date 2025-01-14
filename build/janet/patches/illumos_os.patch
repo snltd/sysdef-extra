@@ -1,0 +1,11 @@
+--- a/src/core/os.c	Mon Apr 15 21:20:13 2024
++++ a~/src/core/os.c	Thu May 30 13:58:21 2024
+@@ -156,6 +156,8 @@
+     return janet_ckeywordv("dragonfly");
+ #elif defined(JANET_BSD)
+     return janet_ckeywordv("bsd");
++#elif defined(JANET_ILLUMOS)
++    return janet_ckeywordv("illumos");
+ #else
+     return janet_ckeywordv("posix");
+ #endif

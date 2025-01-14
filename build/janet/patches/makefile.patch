@@ -1,0 +1,15 @@
+diff -wpruN '--exclude=*.orig' a~/Makefile a/Makefile
+--- a~/Makefile	2023-06-19 12:18:35.000000000 +0000
++++ a/Makefile	2023-08-04 21:33:18.580714338 +0000
+@@ -74,6 +74,11 @@ ifeq ($(UNAME), Darwin)
+ 	LDCONFIG:=true
+ else ifeq ($(UNAME), Linux)
+ 	CLIBS:=$(CLIBS) -lrt -ldl
++else ifeq ($(UNAME), SunOS)
++	CLIBS=-lm -lsocket -lssp
++	COMMON_CFLAGS:=$(COMMON_CFLAGS) -D__EXTENSIONS__ -fstack-protector-all
++	BOOT_CFLAGS:=-DJANET_BOOTSTRAP -DJANET_NO_NANBOX -DJANET_BUILD=$(JANET_BUILD) -O0 $(COMMON_CFLAGS) -g
++	BUILD_CFLAGS:=$(CFLAGS) $(COMMON_CFLAGS) -DJANET_NO_NANBOX
+ endif
+
+ # For other unix likes, add flags here!

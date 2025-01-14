@@ -1,0 +1,16 @@
+--- a/src/core/os.c	Sat Jun 15 12:11:48 2024
++++ a~/src/core/os.c	Sat Jun 15 16:53:25 2024
+@@ -290,6 +290,13 @@
+         return dflt;
+     }
+     return janet_wrap_integer(result);
++#elif defined(JANET_ILLUMOS)
++    (void) dflt;
++    long result = sysconf(_SC_NPROCESSORS_CONF);
++    if (result < 0) {
++        return dflt;
++    }
++    return janet_wrap_integer(result);
+ #else
+     return dflt;
+ #endif

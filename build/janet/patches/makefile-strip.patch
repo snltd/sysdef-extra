@@ -1,0 +1,28 @@
+Common subdirectories: a/.builds and a~/.builds
+Common subdirectories: a/.github and a~/.github
+diff -u a/Makefile a~/Makefile
+--- a/Makefile	Mon Apr 15 21:20:13 2024
++++ a~/Makefile	Wed May 29 21:23:46 2024
+@@ -275,7 +275,7 @@
+ 	README.md build/c/janet.c build/c/shell.c
+ 	mkdir -p build/$(JANET_DIST_DIR)/bin
+ 	cp $(JANET_TARGET) build/$(JANET_DIST_DIR)/bin/
+-	strip -x -S 'build/$(JANET_DIST_DIR)/bin/janet'
++	strip -x 'build/$(JANET_DIST_DIR)/bin/janet'
+ 	mkdir -p build/$(JANET_DIST_DIR)/include
+ 	cp build/janet.h build/$(JANET_DIST_DIR)/include/
+ 	mkdir -p build/$(JANET_DIST_DIR)/lib/
+@@ -322,7 +322,7 @@
+ install: $(JANET_TARGET) $(JANET_LIBRARY) $(JANET_STATIC_LIBRARY) build/janet.pc build/janet.h
+ 	mkdir -p '$(DESTDIR)$(BINDIR)'
+ 	cp $(JANET_TARGET) '$(DESTDIR)$(BINDIR)/janet'
+-	strip -x -S '$(DESTDIR)$(BINDIR)/janet'
++	strip -x '$(DESTDIR)$(BINDIR)/janet'
+ 	mkdir -p '$(DESTDIR)$(INCLUDEDIR)/janet'
+ 	cp -r build/janet.h '$(DESTDIR)$(INCLUDEDIR)/janet'
+ 	ln -sf ./janet/janet.h '$(DESTDIR)$(INCLUDEDIR)/janet.h'
+Common subdirectories: a/assets and a~/assets
+Common subdirectories: a/examples and a~/examples
+Common subdirectories: a/src and a~/src
+Common subdirectories: a/test and a~/test
+Common subdirectories: a/tools and a~/tools

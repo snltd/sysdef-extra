@@ -1,0 +1,47 @@
+#!/usr/bin/ksh
+
+# Start the Wavefront proxy on a SunOS system. SMF can stop it without
+# assistance. You might need to change the heap size
+
+propval() {
+	/usr/bin/svcprop -p options/$1 wavefront/proxy
+}
+
+CONF_DIR=/etc/opt/ooce/wavefront-proxy
+
+/usr/bin/java \
+	-Xms$(propval heap_min) \
+	-Xmx$(propval heap_max) \
+	-server  \
+	-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager \
+	-Dlog4j.configurationFile=${CONF_DIR}/log4j2.xml \
+	-jar /opt/ooce/wavefront-proxy/lib/wavefront-proxy.jar \
+	-f ${CONF_DIR}/wavefront.conf &
+
+PID=$!
+checks=120
+print "Process launched as ${PID}. Waiting for connection."
+
+while (( checks > 0 ))
+do
+    sleep 1
+
+    if ! ps -p $PID >/dev/null 2>&1
+    then
+        print -u2 "FAILED: process is dead "
+        exit 1
+    fi
+
+    if print < /dev/tcp/localhost/2878 >/dev/null 2>&1
+    then
+        print " OK"
+        exit 0
+    fi
+
+    print -n .
+	(( checks = checks - 1 ))
+done
+
+ps -p $PID >/dev/null 2>&1 && kill $PID || kill -9 $PID
+print -u2 " FAILED. Cannot access port 3878"
+exit 1

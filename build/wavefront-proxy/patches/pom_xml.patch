@@ -1,0 +1,18 @@
+diff -wpruN '--exclude=*.orig' a~/proxy/pom.xml a/proxy/pom.xml
+--- a~/proxy/pom.xml	2023-05-01 17:50:46.000000000 +0000
++++ a/proxy/pom.xml	2023-05-06 13:51:07.222328768 +0000
+@@ -598,6 +598,14 @@
+       <artifactId>snakeyaml</artifactId>
+       <version>2.0</version>
+     </dependency>
++    <dependency>
++      <groupId>com.sun</groupId>
++      <artifactId>tools</artifactId>
++      <version>1.8</version>
++      <scope>system</scope>
++      <systemPath>${java.home}/lib/tools.jar</systemPath>
++      <optional>true</optional>
++</dependency>
+   </dependencies>
+ 
+   <profiles>

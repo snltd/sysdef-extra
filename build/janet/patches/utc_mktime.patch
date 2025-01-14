@@ -1,0 +1,12 @@
+diff -wpruN '--exclude=*.orig' a~/src/include/janet.h a/src/include/janet.h
+--- a~/src/include/janet.h	2023-03-05 15:48:25.000000000 +0000
++++ a/src/include/janet.h	2023-04-06 17:42:13.651003989 +0000
+@@ -156,7 +156,7 @@ extern "C" {
+ #endif
+
+ /* Check sun */
+-#ifdef __sun
++#if defined(__sun) && !defined(JANET_ILLUMOS)
+ #define JANET_NO_UTC_MKTIME
+ #endif
+
