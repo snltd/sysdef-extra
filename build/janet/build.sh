@@ -17,7 +17,7 @@
 . ../../lib/build.sh
 
 PROG=janet
-VER=1.35.2
+VER=1.38.0
 PKG=sysdef/runtime/janet
 SUMMARY="The Janet programming language"
 DESC="A functional, imperative Lisp-like programming language"
@@ -44,7 +44,7 @@ build_fini() {
 
 set_arch 64
 set_mirror https://github.com
-set_checksum sha256 947dfdab6c1417c7c43efef2ecb7a92a3c339ce2135233fe88323740e6e7fab1
+set_checksum sha256 84dbf7db9c09677618549fb4be23631fd64f527af21051db02753241a2f6f752
 
 # create package functions
 init
