@@ -12,7 +12,7 @@
 # http://www.illumos.org/license/CDDL.
 # }}}
 
-# Copyright 2023 Sysdef Ltd
+# Copyright 2025 Sysdef Ltd
 
 . ../../lib/build.sh
 
@@ -22,8 +22,11 @@ PKG=sysdef/util/samba
 SUMMARY="CIFS file server"
 DESC="Makes files available over the CIFS protocol"
 
+CFLAGS+=" -I/opt/ooce/include -fcommon -Wno-error=implicit-int -Wno-error=implicit-function-declaration -Wno-implicit-function-declaration"
+
 OPREFIX=$PREFIX
 PREFIX+="/$PROG"
+LDFLAGS[amd64]+=" -L/opt/ooce/libiconv/lib/amd64 -L$OPREFIX/lib/amd64 -Wl,-R/opt/ooce/samba/lib/amd64"
 
 XFORM_ARGS="
     -DPREFIX=${PREFIX#/}
@@ -34,10 +37,23 @@ XFORM_ARGS="
 
 CONFIGURE_OPTS="
     --prefix=$PREFIX
-    --enable-static
+    --enable-static=yes
     --includedir=$OPREFIX/include
+    --disable-swat
+    --disable-cups
+    --disable-iprint
+    --disable-avahi
+    --without-libtalloc
+    --without-libtevent
+    --without-libtdb
+    --without-ads
+    --without-ldap
+    --without-wbclient
+    --with-included-popt
 "
 
+SKIP_RTIME_CHECK=1
+SKIP_SSP_CHECK=1
 
 set_arch 64
 set_mirror https://download.samba.org/

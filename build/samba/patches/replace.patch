@@ -1,0 +1,13 @@
+diff --git a~/lib/replace/replace.h a/lib/replace/replace.h
+index 926ccc7..46fd508 100644
+--- a~/lib/replace/replace.h
++++ a/lib/replace/replace.h
+@@ -696,7 +696,7 @@ typedef unsigned long long ptrdiff_t ;
+ #define discard_const(ptr) ((void *)((uintptr_t)(ptr)))
+ 
+ /** Type-safe version of discard_const */
+-#define discard_const_p(type, ptr) ((type *)discard_const(ptr))
++#define discard_const_p(type, ptr) ((const type *)(ptr))
+ 
+ #ifndef __STRING
+ #define __STRING(x)    #x

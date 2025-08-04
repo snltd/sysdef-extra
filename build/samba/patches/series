@@ -1,1 +1,5 @@
+async_smb.patch
 filio.patch
+replace.patch
+rpc_transport.patch
+smb_iconv.patch

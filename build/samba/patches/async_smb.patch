@@ -1,0 +1,13 @@
+diff --git a~/source3/libsmb/async_smb.c a/source3/libsmb/async_smb.c
+index 7e8adda..1e99ab2 100644
+--- a~/source3/libsmb/async_smb.c
++++ a/source3/libsmb/async_smb.c
+@@ -1202,7 +1202,7 @@ struct tevent_req *cli_session_request_send(TALLOC_CTX *mem_ctx,
+ 		    state->iov[1].iov_len + state->iov[2].iov_len);
+ 	SCVAL((char *)&state->len_hdr, 0, 0x81);
+ 
+-	state->iov[0].iov_base = &state->len_hdr;
++	state->iov[0].iov_base = (caddr_t)&state->len_hdr;
+ 	state->iov[0].iov_len = sizeof(state->len_hdr);
+ 
+ 	subreq = writev_send(state, ev, NULL, sock, true, state->iov, 3);

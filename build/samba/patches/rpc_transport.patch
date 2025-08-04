@@ -1,0 +1,22 @@
+diff --git a~/source3/rpc_client/rpc_transport_tstream.c a/source3/rpc_client/rpc_transport_tstream.c
+index e62ab4b..f2cfc5a 100644
+--- a~/source3/rpc_client/rpc_transport_tstream.c
++++ a/source3/rpc_client/rpc_transport_tstream.c
+@@ -275,7 +275,7 @@ static struct tevent_req *rpc_tstream_write_send(TALLOC_CTX *mem_ctx,
+ 	}
+ 	state->ev = ev;
+ 	state->transp = transp;
+-	state->iov.iov_base = discard_const_p(void *, data);
++	state->iov.iov_base = (caddr_t)data;
+ 	state->iov.iov_len = size;
+ 
+ 	subreq = tstream_writev_queue_send(state, ev,
+@@ -371,7 +371,7 @@ static struct tevent_req *rpc_tstream_trans_send(TALLOC_CTX *mem_ctx,
+ 	state->ev = ev;
+ 	state->transp = transp;
+ 	state->req.iov_len = data_len;
+-	state->req.iov_base = discard_const_p(void *, data);
++	state->req.iov_base = (caddr_t)data;
+ 	state->max_rdata_len = max_rdata_len;
+ 
+ 	endtime = timeval_current_ofs(0, transp->timeout * 1000);
