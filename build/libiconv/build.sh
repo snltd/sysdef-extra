@@ -12,18 +12,18 @@
 # http://www.illumos.org/license/CDDL.
 # }}}
 
-# Copyright 2023 Sysdef Ltd
+# Copyright 2025 Sysdef Ltd
 
 . ../../lib/build.sh
 
 PROG=libiconv
-VER=1.17
+VER=1.18
 PKG=sysdef/library/iconv
 SUMMARY="GNU libiconv"
 DESC="The GNU iconv implementation"
-LDFLAGS[amd64]+=" -L$OPREFIX/lib/amd64 -R$OPREFIX/lib/amd64"
 OPREFIX=$PREFIX
 PREFIX+="/$PROG"
+LDFLAGS[amd64]+=" -L/opt/ooce/libiconv/lib/amd64 -Wl,-R/opt/ooce/libiconv/lib/amd64"
 
 XFORM_ARGS="
     -DPREFIX=${PREFIX#/}
@@ -38,12 +38,11 @@ CONFIGURE_OPTS[amd64]="
     --libdir=$OPREFIX/lib/amd64
 "
 
-LDFLAGS[amd64]+=" -L$OPREFIX/lib/amd64 -R$OPREFIX/lib/amd64"
 
 set_arch 64
 set_ssp none
 set_mirror https://ftp.gnu.org
-set_checksum sha256 8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313
+set_checksum sha256 3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8
 
 init
 download_source pub/gnu/$PROG ${PROG}-$VER
