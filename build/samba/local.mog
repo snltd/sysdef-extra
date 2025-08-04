@@ -27,6 +27,9 @@
 # Drop 32bit binaries
 # <transform path=$(PREFIX)/s?bin/i386 -> drop>
 
+<transform path=$(PREFIX)/bin/findsmb -> drop>
+<transform path=$(PREFIX)/share/man/man1/findsmb.1 -> drop>
+
 # Symlink binaries
 <transform file path=$(PREFIX)/(s?bin)/(.*) -> emit \
     link path=$(OPREFIX)/%<1>/%<2> target=../$(PROG)/%<1>/%<2> >
